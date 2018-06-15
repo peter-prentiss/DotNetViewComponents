@@ -1,10 +1,8 @@
-﻿using System;
-namespace DotNetViewComponents.Models
+﻿namespace UsingViewComponents.Models
 {
     public class Product
     {
-        public Product()
-        {
-        }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
     }
 }
