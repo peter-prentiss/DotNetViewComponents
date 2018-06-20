@@ -1,10 +1,25 @@
-﻿using System;
-namespace DotNetViewComponents.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+using UsingViewComponents.Models;
+namespace UsingViewComponents.Controllers
 {
-    public class HomeController
+    public class HomeController : Controller
     {
-        public HomeController()
+        private IProductRepository repository;
+
+        public HomeController(IProductRepository repo)
         {
+            repository = repo;
+        }
+
+        public ViewResult Index() => View(repository.Products);
+
+        public ViewResult Create() => View();
+
+        [HttpPost]
+        public IActionResult Create(Product newProduct)
+        {
+            repository.AddProduct(newProduct);
+            return RedirectToAction("Index");
         }
     }
 }
