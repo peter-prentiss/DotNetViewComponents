@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-namespace UsingViewComponents.Models
+namespace DotNetViewComponents.Models
 {
     public interface ICityRepository
     {

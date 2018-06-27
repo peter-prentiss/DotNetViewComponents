@@ -1,4 +1,4 @@
-﻿namespace UsingViewComponents.Models
+﻿namespace DotNetViewComponents.Models
 {
     public class Product
     {

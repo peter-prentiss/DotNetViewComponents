@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UsingViewComponents.Models;
+using DotNetViewComponents.Models;
 namespace UsingViewComponents.Controllers
 {
     public class HomeController : Controller
