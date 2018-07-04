@@ -13,7 +13,7 @@ namespace DotNetViewComponents.Components
             repository = repo;
         }
 
-        public string Invoke()
+        public IViewComponentResult Invoke()
         {
             return View(new CityViewModel
             {
