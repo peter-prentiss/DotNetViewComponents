@@ -15,11 +15,7 @@ namespace DotNetViewComponents.Components
 
         public IViewComponentResult Invoke()
         {
-            return View(new CityViewModel
-            {
-                Cities = repository.Cities.Count(),
-                Population = repository.Cities.Sum(c => c.Population)
-            });
+            return Content("This is a <h3><i>string</i></h3>");
         }
     }
 }
