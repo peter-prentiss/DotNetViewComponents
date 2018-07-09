@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using DotNetViewComponents.Models;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
-using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DotNetViewComponents.Components
 {
@@ -17,8 +17,15 @@ namespace DotNetViewComponents.Components
 
         public IViewComponentResult Invoke()
         {
-            return new HtmlContentViewComponentResult(
-                new HtmlString("This is a <h3><i>string</i></h3>"));
+            string target = RouteData.Values["id"] as string;
+            var cities = repository.Cities
+            .Where(city => target == null ||
+            string.Compare(city.Country, target, true) == 0);
+            return View(new CityViewModel
+            {
+                Cities = cities.Count(),
+                Population = cities.Sum(c => c.Population)
+            });
         }
     }
 }
