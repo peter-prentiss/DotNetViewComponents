@@ -15,17 +15,20 @@ namespace DotNetViewComponents.Components
             repository = repo;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(bool showList)
         {
-            string target = RouteData.Values["id"] as string;
-            var cities = repository.Cities
-            .Where(city => target == null ||
-            string.Compare(city.Country, target, true) == 0);
-            return View(new CityViewModel
+            if (showList)
             {
-                Cities = cities.Count(),
-                Population = cities.Sum(c => c.Population)
-            });
+                return View("CityList", repository.Cities);
+            }
+            else
+            {
+                return View(new CityViewModel
+                {
+                    Cities = repository.Cities.Count(),
+                    Population = repository.Cities.Sum(c => c.Population)
+                });
+            }
         }
     }
 }
