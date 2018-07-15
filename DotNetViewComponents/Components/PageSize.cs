@@ -1,10 +1,17 @@
-﻿using System;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+
 namespace DotNetViewComponents.Components
 {
-    public class PageSize
+    public class PageSize : ViewComponent
     {
-        public PageSize()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response
+                = await client.GetAsync("http://apress.com");
+            return View(response.Content.Headers.ContentLength);
         }
     }
 }
