@@ -1,35 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using DotNetViewComponents.Models;
 
 namespace DotNetViewComponents.Controllers
 {
-    // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-    public class CityController
+    [ViewComponent(Name = "ComboComponent")]
+    public class CityController : Controller
     {
-        private readonly RequestDelegate _next;
-
-        public CityController(RequestDelegate next)
+        private ICityRepository repository;
+        public CityController(ICityRepository repo)
         {
-            _next = next;
+            repository = repo;
         }
-
-        public Task Invoke(HttpContext httpContext)
+        public ViewResult Create() => View();
+        [HttpPost]
+        public IActionResult Create(City newCity)
         {
-
-            return _next(httpContext);
+            repository.AddCity(newCity);
+            return RedirectToAction("Index", "Home");
         }
-    }
-
-    // Extension method used to add the middleware to the HTTP request pipeline.
-    public static class CityControllerExtensions
-    {
-        public static IApplicationBuilder UseMiddlewareClassTemplate(this IApplicationBuilder builder)
+        public IViewComponentResult Invoke() => new ViewViewComponentResult()
         {
-            return builder.UseMiddleware<CityController>();
-        }
+            ViewData = new ViewDataDictionary<IEnumerable<City>>(ViewData,
+        repository.Cities)
+        };
     }
 }
