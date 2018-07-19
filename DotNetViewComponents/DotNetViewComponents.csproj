@@ -16,6 +16,8 @@
     <Folder Include="Views\Home\Components\CitySummary\" />
     <Folder Include="Views\Home\Components\PageSize\" />
     <Folder Include="Views\City\" />
+    <Folder Include="Views\Shared\Components\" />
+    <Folder Include="Views\Shared\Components\ComboComponent\" />
   </ItemGroup>
 
   <ItemGroup>
